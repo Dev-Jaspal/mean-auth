@@ -20,9 +20,9 @@ mongoose.connect(process.env.MONGO)
 
 const __dirname = path.resolve();
 const app = express();
-app.use(express.static(path.join(__dirname, '/client/dist')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.get('*', (req,res)=>{
-    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 app.use(cors({ credentials: true, origin: 'http://localhost:3001' }));
 app.use(express.json());
