@@ -25,9 +25,9 @@ const corsOptions = {
 
 const __dirname = path.resolve();
 const app = express();
-app.use(express.static(path.join(__dirname, '/client/build/dist')));
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.get('*', (req,res)=>{
-    res.sendFile(path.join(__dirname, 'client/build/', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 })
 app.use(express.json());
 app.use(cors(corsOptions));
