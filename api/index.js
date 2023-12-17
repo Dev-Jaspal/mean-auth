@@ -18,14 +18,19 @@ mongoose.connect(process.env.MONGO)
     console.log(err);
 });
 
+const corsOptions = {
+    origin: true, // Allow all origins dynamically
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  };
+
 const __dirname = path.resolve();
 const app = express();
-app.use(express.static(path.join(__dirname, '/client/dist')));
-app.get('*', (req,res)=>{
-    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-})
-app.use(cors({ credentials: true, origin: 'http://localhost:3001' }));
+// app.use(express.static(path.join(__dirname, '/client/dist')));
+// app.get('*', (req,res)=>{
+//     res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+// })
 app.use(express.json());
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
@@ -33,6 +38,8 @@ app.listen(3000, () => {
     console.log('Server listening on port 3000');
 });
 
+// Handling the preflight request (OPTIONS) explicitly
+app.options('*', cors(corsOptions));
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 
