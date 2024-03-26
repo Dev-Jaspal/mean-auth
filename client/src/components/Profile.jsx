@@ -14,6 +14,7 @@ function Profile() {
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const {currentUser, loading, error} = useSelector(state => state.user);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (image) {
       handleFileUpload(image);
@@ -52,7 +53,7 @@ function Profile() {
     try 
     {
       dispatch(updateUserInStart())
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`http://localhost:3000/api/user/update/${currentUser._id}`, {
         method:'POST',
         credentials: 'include',
         headers:{
@@ -77,7 +78,7 @@ function Profile() {
   const handleDeleteAccount = async () =>{
     try {
       dispatch(deleteUserStart())
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      const res = await fetch(`http://localhost:3000/api/user/delete/${currentUser._id}`, {
         method:'DELETE',
         credentials: 'include',
         headers:{
@@ -98,7 +99,7 @@ function Profile() {
 
   const handleSignOut = async () => {
     try {
-      await fetch('/api/auth/signout', {
+      await fetch('http://localhost:3000/api/auth/signout', {
         method:'GET',
         credentials: 'include',
         headers:{
